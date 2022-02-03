@@ -1143,6 +1143,7 @@ function countDown() {
       // clearInterval(downloadTimer);
       document.getElementById("coutDown").innerHTML = "Time is up! You loose the game";
       window.alert('Time is up! You loose the game')
+      newGame()//call new game for start new game
       if (window.alert) {
         clearInterval(downloadTimer)
         // console.log('photo dikhde')
