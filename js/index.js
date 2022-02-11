@@ -58,6 +58,11 @@ let timeLeft = 60;
 let randomArr = [];
 // getting and stop the time
 let downloadTimer;
+
+
+let lengthOfClass;
+
+
 // function for generate random number between 0-23
 function getRandomIndex() {
     while (randomArr.length < 24) {
@@ -67,6 +72,9 @@ function getRandomIndex() {
 }
 //2 series game functionality
 function twoGame() {
+
+   
+
     getRandomIndex()
     document.getElementById("2_pic").disabled = true;
     document.getElementById("2_pic").checked = true;
@@ -251,9 +259,6 @@ function show() {
     document.getElementById("2_pic").checked = false
     document.getElementById("3_pic").checked = false
     document.getElementById("4_pic").checked = false
-    // console.log('hiiiii', document.getElementById("2_pic").checked)
-    // console.log('hiiiiiqs', document.getElementById("2_pic").checked)
-    // console.log('hiiiiidssa', document.getElementById("2_pic").checked)
     switchIntoGame()
     clearInterval(downloadTimer);
     const card = document.querySelectorAll(".card");
@@ -273,6 +278,9 @@ function switchIntoGame() {
         const allCards = document.getElementsByClassName('card');
         Array.prototype.forEach.call(allCards, function (element) {
             // console.log('length is', element.classList.length)
+            if(lengthOfClass!=2){
+
+           
             element.addEventListener('click', function (event) {
                 console.log('length is', element.classList)
                 if (element.classList.length == 2) {
@@ -281,6 +289,11 @@ function switchIntoGame() {
                 } else {
                     console.log('mai flip  hunga')
                     element.classList.toggle("flipCard");
+                    const card1=document.querySelectorAll('.card')
+                    card1.forEach(function(hii){
+                        console.log('tu mera bhai h',hii.classList.length)
+                            lengthOfClass=  hii.classList.length
+                    })
                 }
                 // console.log('element is erfgf', element.classList.length)
                 // console.log('card id is', event.currentTarget.id)
@@ -293,8 +306,11 @@ function switchIntoGame() {
                 }
                 // console.log('id array', cardId)
             });
+        
+        }
+
             // console.log('hamara element',element)
-        });
+        }) ;
         // const allCards = document.getElementsByClassName('card');
         Array.prototype.forEach.call(allCards, function (element) {
             element.addEventListener('click', function () {
@@ -324,6 +340,8 @@ function switchIntoGame() {
                 }
             });
         });
+
+       
 
        
 
