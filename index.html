@@ -11,13 +11,8 @@
     <div class="game__container">
       <div class="main__container">
         <h1 class="time">Time : <span id="coutDown">60</span></h1>
-        <div class="maxtrix__container">
-          <div class="sub_container__1" id="sub_container__1"></div>
-          <div class="sub_container__1" id="sub_container__2"></div>
-          <div class="sub_container__1" id="sub_container__3"></div>
-          <div class="sub_container__1" id="sub_container__4"></div>
-        </div>
-        <div class="sub_container__2">
+        <div class="maxtrix__container" id="maxtrix__container"></div>
+        <div class="action_container__2">
           <div class="sub_container__2__left">
             <div class="sub__selector">
               <div class="option">
@@ -36,12 +31,14 @@
           </div>
           <div class="sub_container__2__right">
             <button class="button newGame" onclick="newGame()">NEW GAME</button>
-            <button class="button show" onclick="show()">SHOW</button>
+            <button class="button show" id="show" onclick="show()" disabled>
+              SHOW
+            </button>
             <button class="button help">HELP</button>
           </div>
         </div>
       </div>
     </div>
-    <script src="./js/index.js"></script>
   </body>
+  <script src="./js/index.js"></script>
 </html>
