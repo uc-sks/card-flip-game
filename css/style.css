@@ -31,10 +31,10 @@
 }
 .sub_container__1 {
   /* width: 100%; */
-  display: flex;
-  /* display: grid;
+  /* display: flex; */
+  display: grid;
   grid-template-columns: 100px 100px 100px 100px 100px 100px;
-  grid-template-rows: 100px 100px 100px 100px; */
+  grid-template-rows: 100px 100px 100px 100px;
 }
 .card {
   width: 100px;
