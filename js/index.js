@@ -367,6 +367,7 @@ function newGame() {
     threeSeriesArray = []
     fourSeriesArray = []
     cardId = []
+    allCard=[]
     lengthOfClass = 0
     result = 0
     randomArr = []
