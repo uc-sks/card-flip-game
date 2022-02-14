@@ -74,7 +74,8 @@ function twoGame() {
     });
     genRandNum(12)
     randomArr=[... randomArr,... randomArr]
-    console.log('random index', randomArr)
+    randomArr = randomArr.sort(() => Math.random() - 0.5)
+    // console.log('random index', randomArr)
     document.getElementById("2_pic").disabled = true;
     document.getElementById("2_pic").checked = true;
     document.getElementById("3_pic").disabled = true;
@@ -101,7 +102,8 @@ function threeGame() {
     countDown();
     genRandNum(8)
     randomArr=[... randomArr,... randomArr,...randomArr]
-    console.log('random index', randomArr)
+    randomArr = randomArr.sort(() => Math.random() - 0.5)
+    // console.log('random index', randomArr)
     for (i = 0; i <= randomArr.length; i++) {
         document.getElementById(`imgs${i}`).src = twoGameData[randomArr[i]]
     }
@@ -121,7 +123,8 @@ function fourGame() {
     countDown();
     genRandNum(6)
     randomArr=[... randomArr,... randomArr,...randomArr,...randomArr]
-    console.log('random index', randomArr)
+    randomArr = randomArr.sort(() => Math.random() - 0.5)
+    // console.log('random index', randomArr)
     for (i = 0; i <= randomArr.length; i++) {
         document.getElementById(`imgs${i}`).src = twoGameData[randomArr[i]]
     }
@@ -135,7 +138,7 @@ function flipImage() {
         twoSeriesArr = []
         // console.log('card id is',cardId)
         allCard=allCard.concat(cardId)
-        console.log('all card is',allCard)
+        // console.log('all card is',allCard)
         cardId = []
     } else {
         const card1 = document.getElementById(`${cardId[0]}`);
@@ -167,6 +170,7 @@ function flipImageSeries3_1() {
     if (threeSeriesArray.length == 1) {
         result = result + 1;
         twoSeriesArr = []
+        allCard=allCard.concat(cardId)
         cardId = []
     } else {
         const card1 = document.getElementById(`${cardId[0]}`);
@@ -215,6 +219,7 @@ function flipImagesSeries4_1_2() {
     if (fourSeriesArray.length == 1) {
         result = result + 1;
         twoSeriesArr = []
+        allCard=allCard.concat(cardId)
         cardId = []
     } else {
         const card1 = document.getElementById(`${cardId[0]}`);
@@ -292,6 +297,7 @@ function countDown() {
         }
     }, 1000);
 }
+// getting the card id
 function flipCard(event) {
     cardId.push(event.currentTarget.id)
 }
@@ -300,18 +306,14 @@ document.addEventListener("DOMContentLoaded", function () {
     Array.prototype.forEach.call(allCards, function (element) {
         element.addEventListener('click', function (event) {
             if (!element.classList.contains("flipCard")) {
-                // console.log('hiii')
                 element.classList.add("flipCard");
             }
-            // cardId.push(event.currentTarget.id)
-            // console.log('card id is',cardId)
         });
     });
     const allCards1 = document.getElementsByClassName('card');
     Array.prototype.forEach.call(allCards1, function (element1) {
         element1.addEventListener('click', function () {
             if(element1.classList.contains("flipCard")){
-            // console.log('element 1 is',element1)
             const children1 = element1.children[1].children[0]
             const flipData1 = children1.src
             let isFounded = allCard.some( data => cardId.includes(data) );
@@ -320,10 +322,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }else{
                 cardId.pop()
             }
-            // if (element1.classList.contains("flipCard")) {
-              
-            //     console.log('flip array is', twoSeriesArr)
-            // }
             if (document.getElementById('2_pic').checked) {
                 if (twoSeriesArr.length == 2) {
                     flipImage();
@@ -347,8 +345,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-// getting the card id
-
 // new game button functionality here
 function newGame() {
     const card = document.querySelectorAll(".card");
