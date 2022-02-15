@@ -218,3 +218,17 @@
 //     z1.setAttribute("alt", "");
 //     document.getElementById(`back${i}`).appendChild(z1);
 // }
+ // if (document.getElementById("2_pic").checked || document.getElementById("3_pic").checked || document.getElementById("4_pic").checked) {
+    //     countDown()
+    // }
+    // for (i = 0; i <= 23; i++) {
+    //     document.getElementById(`imgs${i}`).src = ''
+    // }
+      // console.log('card id is',cardId)
+                    // if(cardId[0]!=cardId[1])
+
+
+                    if (cardId[cardId.length - 1] == cardId[cardId.length - 2]) {
+                        cardId.pop()
+                        twoSeriesArr.pop()
+                    }
