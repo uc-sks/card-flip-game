@@ -23,7 +23,7 @@
   border-radius: 15px 4px 25px 4px;
 }
 .maxtrix__container {
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: 60%;
   display: flex;
@@ -33,8 +33,9 @@
   /* width: 100%; */
   /* display: flex; */
   display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px;
-  grid-template-rows: 100px 100px 100px 100px;
+  /* grid-template-columns: 100px 100px 100px 100px 100px 100px; */
+  grid-template-columns:repeat(6,100px) ;
+  grid-template-rows: repeat(4,100px);
 }
 .card {
   width: 100px;

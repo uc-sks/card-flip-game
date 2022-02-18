@@ -86,12 +86,13 @@ for (i = 0; i < 24; i++) {
 }
 //2 series game functionality
 function twoGame() {
+    // debugger
     eventNone()
     option()
     genRandNum(12)
     randomArr = [...randomArr, ...randomArr]
     randomArr = randomArr.sort(() => Math.random() - 0.5)
-    console.log('random index', randomArr)
+    // console.log('random index', randomArr)
     document.getElementById("2_pic").checked = true;
     countDown();
     setBackImage()
@@ -105,7 +106,6 @@ function threeGame() {
     genRandNum(8)
     randomArr = [...randomArr, ...randomArr, ...randomArr]
     randomArr = randomArr.sort(() => Math.random() - 0.5)
-    console.log('random index', randomArr)
     setBackImage()
 }
 //4 series game functionality
@@ -117,7 +117,7 @@ function fourGame() {
     genRandNum(6)
     randomArr = [...randomArr, ...randomArr, ...randomArr, ...randomArr]
     randomArr = randomArr.sort(() => Math.random() - 0.5)
-    console.log('random index', randomArr)
+    // console.log('random index', randomArr)
     setBackImage()
 }
 //fliping functionality(visibility or flip return for two series)
@@ -133,12 +133,21 @@ function removeFlipClass() {
 }
 function stayVisible() {
     result = result + 1;
-    console.log('result is ', result)
     twoSeriesArr = []
-    // console.log('card id is',cardId)
     allCard = allCard.concat(cardId)
-    // console.log('all card is',allCard)
     cardId = []
+}
+function flipImage3Card() {
+    const card1 = document.getElementById(`${cardId[0]}`);
+    const card2 = document.getElementById(`${cardId[1]}`);
+    const card3 = document.getElementById(`${cardId[2]}`);
+    setTimeout(function () {
+        card1.classList.remove("flipCard");
+        card2.classList.remove("flipCard");
+        card3.classList.remove("flipCard");
+        twoSeriesArr = []
+        cardId = []
+    }, 200)
 }
 function flipImage() {
     if (twoSeriesArr[0] === twoSeriesArr[1]) {
@@ -159,16 +168,7 @@ function flipImageSeries3_1() {
     if (threeSeriesArray.length == 1) {
         stayVisible()
     } else {
-        const card1 = document.getElementById(`${cardId[0]}`);
-        const card2 = document.getElementById(`${cardId[1]}`);
-        const card3 = document.getElementById(`${cardId[2]}`);
-        setTimeout(function () {
-            card1.classList.remove("flipCard");
-            card2.classList.remove("flipCard");
-            card3.classList.remove("flipCard");
-            twoSeriesArr = []
-            cardId = []
-        }, 200)
+        flipImage3Card()
     }
 }
 function flipImagesSeries4() {
@@ -181,16 +181,7 @@ function flipImagesSeries4_1() {
     fourSeriesArray = [...new Set(twoSeriesArr)]
     if (fourSeriesArray.length == 1) {
     } else {
-        const card1 = document.getElementById(`${cardId[0]}`);
-        const card2 = document.getElementById(`${cardId[1]}`);
-        const card3 = document.getElementById(`${cardId[2]}`);
-        setTimeout(function () {
-            card1.classList.remove("flipCard");
-            card2.classList.remove("flipCard");
-            card3.classList.remove("flipCard");
-            twoSeriesArr = []
-            cardId = []
-        }, 200)
+        flipImage3Card()
     }
 }
 function flipImagesSeries4_1_2() {
@@ -234,8 +225,7 @@ function show() {
 // counter start here
 function countDown() {
     downloadTimer = setInterval(function function1() {
-        document.getElementById("coutDown").innerHTML =
-            timeLeft + "&nbsp" + "seconds remaining";
+        document.getElementById("coutDown").innerHTML = timeLeft + "&nbsp" + "seconds remaining";
         timeLeft -= 1;
         if (timeLeft > 0) {
             if (document.getElementById("2_pic").checked) {
@@ -275,7 +265,6 @@ function countDown() {
 // getting the card id
 function flipCard(event) {
     cardId.push(event.currentTarget.id)
-    // console.log('card id is',cardId)
     const toFindDuplicates = cardId => cardId.filter((item, index) => cardId.indexOf(item) !== index)
     const data = toFindDuplicates(cardId)
     if (data.length != 0) {
@@ -298,11 +287,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (element1.classList.contains("flipCard")) {
                 const children1 = element1.children[1].children[0]
                 const flipData1 = children1.src
-                console.log('all card', allCard)
                 let isFounded = allCard.some(data => cardId.includes(data));
                 if (!isFounded) {
                     twoSeriesArr.push(flipData1)
-                    console.log('two series ', twoSeriesArr)
                 } else {
                     cardId.pop()
                 }
@@ -348,8 +335,8 @@ function newGame() {
     fourSeriesArray = []
     cardId = []
     allCard = []
-    result = 0
     randomArr = []
+    result = 0
     timeLeft = 60
     document.getElementById("coutDown").innerHTML = `${timeLeft}`;
     clearInterval(downloadTimer)
