@@ -31,12 +31,12 @@ let downloadTimer;
 //fliped card id
 let allCard = []
 //generating random data
-function genRandNum(value) {
-    while (randomArr.length < value) {
-        const randomData = Math.floor(Math.random() * value) + 0;
-        if (randomArr.indexOf(randomData) === -1) randomArr.push(randomData);
-    }
+const genRandNum = (value) => {
+    randomArr = Array(value).fill().map((_, index) => index);
+    randomArr.sort(() => Math.random() - 0.5);
+    randomArr.slice(0, value)
 }
+//adding property to radio button and button
 function option() {
     document.getElementById("2_pic").disabled = true;
     document.getElementById("3_pic").disabled = true;
@@ -44,12 +44,14 @@ function option() {
     document.getElementById("show").disabled = false;
     document.getElementById("newGame").disabled = false;
 }
+// removing a class event none from the card after the game start
 function eventNone() {
     const card = document.querySelectorAll(".card");
     card.forEach(function (card) {
         card.classList.remove('eventNuno')
     });
 }
+// setting the back image of card randomly
 function setBackImage() {
     for (i = 0; i < randomArr.length; i++) {
         document.getElementById(`imgs${i}`).src = twoGameData[randomArr[i]]
@@ -57,67 +59,51 @@ function setBackImage() {
 }
 // generating grid of 24 card here
 for (i = 0; i < 24; i++) {
+    // generate main card
     const x = document.createElement("div");
     x.setAttribute("class", "card eventNuno");
     x.setAttribute("id", `card${i}`);
     x.setAttribute("onclick", "flipCard(event)");
     document.getElementById("sub_container__1").appendChild(x);
+    //generate fisrt div for front image
     const y = document.createElement("div");
     y.setAttribute("class", "front");
     y.setAttribute("id", `front${i}`);
     document.getElementById(`card${i}`).appendChild(y);
+    // generate front image
     const y1 = document.createElement("img");
-    y1.setAttribute("class", "img1");
-    y1.setAttribute("id", `img${i}`);
-    y1.setAttribute("src", "./img/img2.jpeg");
-    y1.setAttribute("alt", "");
+    var forFrontImage = { "class": "img1", "id": `img${i}`, "src": "./img/img2.jpeg", "alt": "" };
+    Object.keys(forFrontImage).forEach(function (key) { y1.setAttribute(key, forFrontImage[key]); });
     document.getElementById(`front${i}`).appendChild(y1);
+    // generate second div for back image
     const z = document.createElement("div");
     z.setAttribute("class", "back");
     z.setAttribute("id", `back${i}`);
     document.getElementById(`card${i}`).appendChild(z);
+    // generate back image
     const z1 = document.createElement("img");
-    z1.setAttribute("class", "img1");
-    z1.setAttribute("id", `imgs${i}`);
-    z1.setAttribute("src", "./img/img2.jpeg");
-    z1.setAttribute("alt", "");
+    var forBackImage = { "class": "img1", "id": `imgs${i}`, "src": "./img/img2.jpeg", "alt": "" };
+    Object.keys(forBackImage).forEach(function (key) { z1.setAttribute(key, forBackImage[key]); });
     document.getElementById(`back${i}`).appendChild(z1);
-    // num++
 }
-//2 series game functionality
-function twoGame() {
-    // debugger
+// game functionality start here when clicks on 2 series, 3 series and 4 series game
+function game(value) {
     eventNone()
     option()
-    genRandNum(12)
-    randomArr = [...randomArr, ...randomArr]
-    randomArr = randomArr.sort(() => Math.random() - 0.5)
-    // console.log('random index', randomArr)
-    document.getElementById("2_pic").checked = true;
+    genRandNum(value)
+    if (document.getElementById("2_pic").checked) {
+        randomArr = [...randomArr, ...randomArr]
+        randomArr.sort(() => Math.random() - 0.5);
+    }
+    if (document.getElementById("3_pic").checked) {
+        randomArr = [...randomArr, ...randomArr, ...randomArr]
+        randomArr.sort(() => Math.random() - 0.5);
+    }
+    if (document.getElementById("4_pic").checked) {
+        randomArr = [...randomArr, ...randomArr, ...randomArr, ...randomArr]
+        randomArr.sort(() => Math.random() - 0.5);
+    }
     countDown();
-    setBackImage()
-}
-//3 series game functionality
-function threeGame() {
-    eventNone()
-    document.getElementById("3_pic").checked = true;
-    option()
-    countDown();
-    genRandNum(8)
-    randomArr = [...randomArr, ...randomArr, ...randomArr]
-    randomArr = randomArr.sort(() => Math.random() - 0.5)
-    setBackImage()
-}
-//4 series game functionality
-function fourGame() {
-    eventNone()
-    document.getElementById("4_pic").checked = true;
-    option()
-    countDown();
-    genRandNum(6)
-    randomArr = [...randomArr, ...randomArr, ...randomArr, ...randomArr]
-    randomArr = randomArr.sort(() => Math.random() - 0.5)
-    // console.log('random index', randomArr)
     setBackImage()
 }
 //fliping functionality(visibility or flip return for two series)
@@ -131,12 +117,14 @@ function removeFlipClass() {
         cardId = []
     }, 200)
 }
+// if the 2 card or 3 card or 4 card are stay visible
 function stayVisible() {
     result = result + 1;
     twoSeriesArr = []
     allCard = allCard.concat(cardId)
     cardId = []
 }
+// removing flipCard class from 3 card if all three card image are not equals
 function flipImage3Card() {
     const card1 = document.getElementById(`${cardId[0]}`);
     const card2 = document.getElementById(`${cardId[1]}`);
@@ -149,6 +137,7 @@ function flipImage3Card() {
         cardId = []
     }, 200)
 }
+// 
 function flipImage() {
     if (twoSeriesArr[0] === twoSeriesArr[1]) {
         stayVisible()
@@ -216,9 +205,8 @@ function show() {
     clearInterval(downloadTimer);
     card.forEach(function (card) {
         const h1ClassNames = card.classList;
-        if (h1ClassNames[1] == 'flipCard') {
-        } else {
-            card.classList.toggle("flipCard");
+        if (h1ClassNames[1] != 'flipCard') {
+            card.classList.add("flipCard");
         }
     });
 }
@@ -253,9 +241,8 @@ function countDown() {
                 const card = document.querySelectorAll(".card");
                 card.forEach(function (card) {
                     const h1ClassNames = card.classList;
-                    if (h1ClassNames[1] == 'flipCard') {
-                    } else {
-                        card.classList.toggle("flipCard");
+                    if (h1ClassNames[1] != 'flipCard') {
+                        card.classList.add("flipCard");
                     }
                 });
             }
@@ -316,6 +303,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// after clicking on new game this function will run
+function newGameOption(id) {
+    document.getElementById(id).checked = false
+    document.getElementById(id).disabled = false;
+}
 // new game button functionality here
 function newGame() {
     const card = document.querySelectorAll(".card");
@@ -323,12 +316,9 @@ function newGame() {
         card.classList.add('eventNuno')
         card.classList.remove("flipCard");
     });
-    document.getElementById("2_pic").checked = false;
-    document.getElementById("3_pic").checked = false;
-    document.getElementById("4_pic").checked = false;
-    document.getElementById("2_pic").disabled = false;
-    document.getElementById("3_pic").disabled = false;
-    document.getElementById("4_pic").disabled = false;
+    newGameOption('2_pic')
+    newGameOption('3_pic')
+    newGameOption('4_pic')
     document.getElementById("show").disabled = true;
     twoSeriesArr = []
     threeSeriesArray = []
@@ -341,4 +331,3 @@ function newGame() {
     document.getElementById("coutDown").innerHTML = `${timeLeft}`;
     clearInterval(downloadTimer)
 }
-
