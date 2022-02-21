@@ -93,16 +93,14 @@ function game(value) {
     genRandNum(value)
     if (document.getElementById("2_pic").checked) {
         randomArr = [...randomArr, ...randomArr]
-        randomArr.sort(() => Math.random() - 0.5);
     }
     if (document.getElementById("3_pic").checked) {
         randomArr = [...randomArr, ...randomArr, ...randomArr]
-        randomArr.sort(() => Math.random() - 0.5);
     }
     if (document.getElementById("4_pic").checked) {
         randomArr = [...randomArr, ...randomArr, ...randomArr, ...randomArr]
-        randomArr.sort(() => Math.random() - 0.5);
     }
+    randomArr.sort(() => Math.random() - 0.5);
     countDown();
     setBackImage()
 }
