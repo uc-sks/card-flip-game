@@ -58,34 +58,36 @@ function setBackImage() {
     }
 }
 // generating grid of 24 card here
-for (i = 0; i < 24; i++) {
-    // generate main card
-    const x = document.createElement("div");
-    x.setAttribute("class", "card eventNuno");
-    x.setAttribute("id", `card${i}`);
-    x.setAttribute("onclick", "flipCard(event)");
-    document.getElementById("sub_container__1").appendChild(x);
-    //generate fisrt div for front image
-    const y = document.createElement("div");
-    y.setAttribute("class", "front");
-    y.setAttribute("id", `front${i}`);
-    document.getElementById(`card${i}`).appendChild(y);
-    // generate front image
-    const y1 = document.createElement("img");
-    var forFrontImage = { "class": "img1", "id": `img${i}`, "src": "./img/img2.jpeg", "alt": "" };
-    Object.keys(forFrontImage).forEach(function (key) { y1.setAttribute(key, forFrontImage[key]); });
-    document.getElementById(`front${i}`).appendChild(y1);
-    // generate second div for back image
-    const z = document.createElement("div");
-    z.setAttribute("class", "back");
-    z.setAttribute("id", `back${i}`);
-    document.getElementById(`card${i}`).appendChild(z);
-    // generate back image
-    const z1 = document.createElement("img");
-    var forBackImage = { "class": "img1", "id": `imgs${i}`, "src": "./img/img2.jpeg", "alt": "" };
-    Object.keys(forBackImage).forEach(function (key) { z1.setAttribute(key, forBackImage[key]); });
-    document.getElementById(`back${i}`).appendChild(z1);
-}
+document.addEventListener("DOMContentLoaded", function () {
+    for (i = 0; i < 24; i++) {
+        // generate main card
+        const x = document.createElement("div");
+        x.setAttribute("class", "card eventNuno");
+        x.setAttribute("id", `card${i}`);
+        x.setAttribute("onclick", "flipCard(event)");
+        document.getElementById("sub_container__1").appendChild(x);
+        //generate fisrt div for front image
+        const y = document.createElement("div");
+        y.setAttribute("class", "front");
+        y.setAttribute("id", `front${i}`);
+        document.getElementById(`card${i}`).appendChild(y);
+        // generate front image
+        const y1 = document.createElement("img");
+        var forFrontImage = { "class": "img1", "id": `img${i}`, "src": "./img/img2.jpeg", "alt": "" };
+        Object.keys(forFrontImage).forEach(function (key) { y1.setAttribute(key, forFrontImage[key]); });
+        document.getElementById(`front${i}`).appendChild(y1);
+        // generate second div for back image
+        const z = document.createElement("div");
+        z.setAttribute("class", "back");
+        z.setAttribute("id", `back${i}`);
+        document.getElementById(`card${i}`).appendChild(z);
+        // generate back image
+        const z1 = document.createElement("img");
+        var forBackImage = { "class": "img1", "id": `imgs${i}`, "src": "./img/img2.jpeg", "alt": "" };
+        Object.keys(forBackImage).forEach(function (key) { z1.setAttribute(key, forBackImage[key]); });
+        document.getElementById(`back${i}`).appendChild(z1);
+    }
+})
 // game functionality start here when clicks on 2 series, 3 series and 4 series game
 function game(value) {
     eventNone()
@@ -145,12 +147,11 @@ function flipImage() {
 }
 //fliping functionality(visibility or flip return for three series......for two pic)
 function flipImageSeries3() {
-    if (twoSeriesArr[0] === twoSeriesArr[1]) {
-    } else {
+    if (twoSeriesArr[0] != twoSeriesArr[1]) {
         removeFlipClass()
     }
 }
-function flipImageSeries3_1() {
+function flipImageSeries3LengthThree() {
     threeSeriesArray = [...new Set(twoSeriesArr)]
     if (threeSeriesArray.length == 1) {
         stayVisible()
@@ -159,19 +160,17 @@ function flipImageSeries3_1() {
     }
 }
 function flipImagesSeries4() {
-    if (twoSeriesArr[0] === twoSeriesArr[1]) {
-    } else {
+    if (twoSeriesArr[0] != twoSeriesArr[1]) {
         removeFlipClass()
     }
 }
-function flipImagesSeries4_1() {
+function flipImagesSeries4LengthThree() {
     fourSeriesArray = [...new Set(twoSeriesArr)]
-    if (fourSeriesArray.length == 1) {
-    } else {
+    if (fourSeriesArray.length != 1) {
         flipImage3Card()
     }
 }
-function flipImagesSeries4_1_2() {
+function flipImagesSeries4LengthFour() {
     fourSeriesArray = [...new Set(twoSeriesArr)]
     if (fourSeriesArray.length == 1) {
         stayVisible()
@@ -286,15 +285,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (twoSeriesArr.length == 2) {
                         flipImageSeries3()
                     } else if (twoSeriesArr.length == 3) {
-                        flipImageSeries3_1()
+                        flipImageSeries3LengthThree()
                     }
                 } else {
                     if (twoSeriesArr.length == 2) {
                         flipImagesSeries4();
                     } else if (twoSeriesArr.length == 3) {
-                        flipImagesSeries4_1();
+                        flipImagesSeries4LengthThree();
                     } else if (twoSeriesArr.length == 4) {
-                        flipImagesSeries4_1_2();
+                        flipImagesSeries4LengthFour();
                     }
                 }
             }
